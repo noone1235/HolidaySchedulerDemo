@@ -1,0 +1,16 @@
+quartz:
+  properties:
+    org.quartz.scheduler.instanceName: MyClusteredScheduler
+    org.quartz.scheduler.instanceId: AUTO # you also can define a custom generator of your own or use already existing once like HostnameInstanceIdGenerator
+    org.quartz.scheduler.skipUpdateCheck: true
+    org.quartz.scheduler.jobFactory.class: org.quartz.simpl.SimpleJobFactory
+    org.quartz.scheduler.threadsInheritContextClassLoaderOfInitializer: true
+    org.quartz.threadPool.threadCount: 2
+    org.quartz.threadPool.threadPriority: 5
+    org.quartz.jobStore.isClustered: true #here is the magic which allows creating a lock automatically. Check here for more 
+    org.quartz.jobStore.misfireThreshold: 30000
+    org.quartz.jobStore.class: com.novemberain.quartz.mongodb.MongoDBJobStore
+    org.quartz.jobStore.mongoUri: mongodb://localhost:27017
+    org.quartz.jobStore.dbName: FirstDataBase
+    org.quartz.jobStore.collectionPrefix: qrtz
+    org.quartz.jobStore.clusterCheckinInterval: 60000 # checks-in with the other instances of the cluster, default 15000
